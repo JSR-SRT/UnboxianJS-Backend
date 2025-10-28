@@ -1,0 +1,43 @@
+# Node dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+dist/
+build/
+out/
+
+# Cache (Vite, Next, React, Tailwind, etc.)
+.cache/
+.vite/
+.next/
+vite.config.ts.timestamp*
+vite.config.js.timestamp*
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+temp/
+tmp/
