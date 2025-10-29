@@ -19,7 +19,7 @@ export const getProfile = async (req, res) => {
 
 // UPDATE User Profile
 export const updateProfile = async (req, res) => {
-  const { firstname, lastname, email, phone, address } = req.body;
+  const { firstName, lastName, email, phoneNumber, shippingAddress } = req.body;
   try {
     const user = await User.findById(req.user._id).select("-password");
     if (!user) {
@@ -27,11 +27,11 @@ export const updateProfile = async (req, res) => {
     }
     
     if (
-      firstname === user.firstname &&
-      lastname === user.lastname &&
+      firstName === user.firstName &&
+      lastName === user.lastName &&
       email === user.email &&
-      phone === user.phone &&
-      address === user.address
+      phoneNumber === user.phoneNumber &&
+      shippingAddress === user.shippingAddress
     ) {
       return res
         .status(400)
@@ -47,11 +47,11 @@ export const updateProfile = async (req, res) => {
       }
     }
     
-    if (firstname) user.firstname = firstname;
-    if (lastname) user.lastname = lastname;
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
     if (email) user.email = email;
-    if (phone) user.phone = phone;
-    if (address) user.address = address;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (shippingAddress) user.shippingAddress = shippingAddress;
     
     await user.save();
     res.status(201).json({ error: false, message: "Profile updated", user });

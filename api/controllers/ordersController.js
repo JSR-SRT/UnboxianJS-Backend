@@ -17,17 +17,17 @@ export const createOrder = async (req, res) => {
       customerInfo: {
         firstName: customer.firstName,
         lastName: customer.lastName,
-        phoneNumber: customer.phone,
+        phoneNumber: customer.phoneNumber || customer.phone,
         email: customer.email,
       },
-      basketItems: cart.map((item) => ({
+      cartItems: cart.map((item) => ({
         productId: item._id,
         name: item.name,
         price: Number(item.price),
         quantity: item.qty,
-        mainImage: item.mainImage, // ✅ เก็บ mainImage เพื่อแสดงใน My Orders
+        mainImage: item.mainImage, // เก็บ mainImage เพื่อแสดงใน My Orders
       })),
-      shippingAddress: customer.deliveryAddress,
+      shippingAddress: customer.deliveryAddress || customer.shippingAddress,
       paymentMethod: customer.paymentMethod,
       subtotal,
       deliveryFee: shipping,
@@ -54,7 +54,7 @@ export const getUserOrders = async (req, res) => {
     const userId = req.user._id;
 
     const orders = await Order.find({ user: userId })
-      .populate("basketItems.productId")
+      .populate("cartItems.productId")
       .sort({ createdAt: -1 }); // เรียงใหม่สุดก่อน
 
     res.json({ error: false, orders });
@@ -70,7 +70,7 @@ export const getOrderById = async (req, res) => {
     const userId = req.user._id;
 
     const order = await Order.findOne({ _id: id, user: userId }).populate(
-      "basketItems.productId"
+      "cartItems.productId"
     );
 
     if (!order) {

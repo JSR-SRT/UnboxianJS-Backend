@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-// import apiRoutes from "./api/routes.js";
+import apiRoutes from "./api/routes.js";
 import { connectMongo } from "./config/mongo.js";
 import errorHandler from "./middleware/errorHandler.js";
 import limiter from "./middleware/rateLimiter.js";
@@ -28,7 +28,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
-// app.use("/", apiRoutes);
+app.use("/", apiRoutes);
 app.get("/", (req, res) => {
   res.send("UnboxianJS Backend API 🚀");
 });

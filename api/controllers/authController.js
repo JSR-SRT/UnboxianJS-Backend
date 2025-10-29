@@ -17,9 +17,9 @@ export const getAllUsers = async (req, res) => {
 
 export const createAccount = async (req, res) => {
   try {
-    const { firstname, lastname, email, phone, username, password, address } = req.body;
+    const { firstName, lastName, email, phoneNumber, username, password, shippingAddress } = req.body;
 
-    if (!firstname || !lastname || !email || !phone || !username || !password) {
+    if (!firstName || !lastName || !email || !phoneNumber || !username || !password) {
       return res
         .status(400)
         .json({ error: true, message: "All required fields must be filled" });
@@ -39,13 +39,13 @@ export const createAccount = async (req, res) => {
         .json({ error: true, message: "Email already registered" });
 
     const user = new User({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
-      phone,
+      phoneNumber,
       username,
       password,
-      address: address || "", // address เป็น optional
+      shippingAddress: shippingAddress || "", // address เป็น optional
       role: "user",
     });
     await user.save();
@@ -70,12 +70,12 @@ export const createAccount = async (req, res) => {
       error: false,
       user: {
         _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
+        firstName: user.firstName,
+        lastName: user.lastName,
         username: user.username,
         email: user.email,
-        phone: user.phone,
-        address: user.address,
+        phoneNumber: user.phoneNumber,
+        shippingAddress: user.shippingAddress,
       },
       accessToken,
       message: "User registered successfully!",
@@ -148,12 +148,12 @@ export const login = async (req, res) => {
       message: "Login successful",
       user: {
         _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
+        firstName: user.firstName,
+        lastName: user.lastName,
         username: user.username,
         email: user.email,
-        phone: user.phone,
-        address: user.address,
+        phoneNumber: user.phoneNumber,
+        shippingAddress: user.shippingAddress,
       },
     });
   } catch (err) {

@@ -23,12 +23,12 @@ export const getAuthStatus = async (req, res) => {
       isLoggedIn: true,
       user: {
         _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
+        firstName: user.firstName,
+        lastName: user.lastName,
         username: user.username,
         email: user.email,
-        phone: user.phone,
-        address: user.address,
+        phoneNumber: user.phoneNumber,
+        shippingAddress: user.shippingAddress,
       },
     });
   } catch (error) {

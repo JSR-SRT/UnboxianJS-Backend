@@ -11,7 +11,7 @@ const OrderSchema = new Schema(
       email: { type: String, required: true },
     },
 
-    basketItems: [
+    cartItems: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
         name: { type: String, required: true },

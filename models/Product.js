@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
-    // ✅ เปลี่ยนจาก id เป็น _id (MongoDB จะสร้างให้อัตโนมัติ)
     category: {
       type: String,
       enum: ["bearbrick", "popmart"],
