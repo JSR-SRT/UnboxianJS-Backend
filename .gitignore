@@ -1,43 +1,178 @@
-# Node dependencies
-node_modules/
-
 # Logs
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 pnpm-debug.log*
-bun-debug.log*
 
-# Environment variables
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs
+lib-cov
+
+# Coverage directory
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Snowpack dependency directory
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
-# Build output
-dist/
-build/
-out/
+# parcel-bundler cache
+.cache
+.parcel-cache
 
-# Cache (Vite, Next, React, Tailwind, etc.)
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
 .cache/
-.vite/
-.next/
-vite.config.ts.timestamp*
-vite.config.js.timestamp*
 
-# IDE / Editor settings
+# vuepress build output
+.vuepress/dist
+
+# vuepress v2.x temp and cache directory
+.temp
+
+# Docusaurus cache and generated files
+.docusaurus
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# System files
-.DS_Store
-Thumbs.db
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
 
 # Temporary files
+*.tmp
+*.temp
 temp/
 tmp/
+
+# Upload directories (ถ้าใช้ local storage)
+uploads/
+temp-images/
+
+# Generated files
+uploaded-images.json
+*.seed.js
+
+# Build outputs
+dist/
+build/
+
+# Testing
+.nyc_output/
+coverage/
+
+# Documentation
+docs/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# MongoDB dumps
+dump/
+
+# Redis dumps
+dump.rdb
+
+# PM2
+.pm2/
