@@ -24,13 +24,13 @@ export const createOrder = async (req, res) => {
         productId: item._id,
         name: item.name,
         price: Number(item.price),
-        quantity: item.qty,
+        quantity: item.qty || item.quantity,
         mainImage: item.mainImage, // เก็บ mainImage เพื่อแสดงใน My Orders
       })),
       shippingAddress: customer.deliveryAddress || customer.shippingAddress,
       paymentMethod: customer.paymentMethod,
       subtotal,
-      deliveryFee: shipping,
+      deliveryFee: shipping || deliveryFee,
       total,
       status: "Preparing", // default status
     });
