@@ -268,7 +268,7 @@ export const ProductItems = [
     mainImage: "https://res.cloudinary.com/dzzd9igjj/image/upload/v1761670445/p9-crybaby-hello-thailand-show_wrg7sh.png",
     gallery: [
       "https://res.cloudinary.com/dzzd9igjj/image/upload/v1761670448/p9-crybaby-hello-thailand-own-1_m1cqac.jpg",
-      "https://res.cloudinary.com/dzzd9igjj/image/upload/v1761670445/p9-crybaby-hello-thailand-show_wrg7sh.png",
+      "https://res.cloudinary.com/dzzd9igjj/image/upload/v1761670450/p9-crybaby-hello-thailand-own-2_dadpru.jpg",
     ],
   },
   {
