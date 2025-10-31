@@ -20,8 +20,6 @@ const corsOptions = {
     "https://unboxian-js-personal-project.vercel.app"
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 const app = express();
@@ -38,7 +36,7 @@ app.get("/", (req, res) => {
 });
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
 
 (async () => {
   try {
