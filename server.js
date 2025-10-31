@@ -10,8 +10,6 @@ import limiter from "./middleware/rateLimiter.js";
 
 dotenv.config();
 
-const isProd = process.env.NODE_ENV === "production";
-
 const corsOptions = {
   origin: [
     "http://localhost:5173",
