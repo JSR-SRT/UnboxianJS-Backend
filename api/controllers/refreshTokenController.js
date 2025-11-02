@@ -17,11 +17,10 @@ export const refreshToken = async (req, res) => {
     );
 
     const isProd = process.env.NODE_ENV === "production";
-
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
     });

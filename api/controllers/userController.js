@@ -77,15 +77,13 @@ export const deleteProfile = async (req, res) => {
     const isProd = process.env.NODE_ENV === "production";
     res.clearCookie("accessToken", {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      path: "/",
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
     });
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      path: "/",
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
     });
     
     return res.json({

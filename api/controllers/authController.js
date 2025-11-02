@@ -17,24 +17,9 @@ export const getAllUsers = async (req, res) => {
 
 export const createAccount = async (req, res) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      username,
-      password,
-      shippingAddress,
-    } = req.body;
+    const { firstName, lastName, email, phoneNumber, username, password, shippingAddress } = req.body;
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !phoneNumber ||
-      !username ||
-      !password
-    ) {
+    if (!firstName || !lastName || !email || !phoneNumber || !username || !password) {
       return res
         .status(400)
         .json({ error: true, message: "All required fields must be filled" });
@@ -75,8 +60,8 @@ export const createAccount = async (req, res) => {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
     });
@@ -136,8 +121,8 @@ export const login = async (req, res) => {
     // Set Access Token as cookie
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
     });
@@ -151,9 +136,9 @@ export const login = async (req, res) => {
       );
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
+        secure: isProd,
+        sameSite: isProd ? "none" : "lax",
+        path: "/auth/token",
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
     }
@@ -189,20 +174,18 @@ export const profile = async (req, res) => {
 
 export const logout = async (req, res) => {
   const isProd = process.env.NODE_ENV === "production";
-
+  
   res.clearCookie("accessToken", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
   });
 
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
   });
-
+  
   res.status(200).json({ message: "Logged out successfully" });
 };

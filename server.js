@@ -13,44 +13,22 @@ dotenv.config();
 const isProd = process.env.NODE_ENV === "production";
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
+  origin: [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
     "https://unboxian-js-personal-project.vercel.app"
-  ];
-
-  if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Set-Cookie"],
-  maxAge: 86400, // cache preflight 24 hours
 };
 
 const app = express();
 
-if (isProd) {
-  app.set("trust proxy", 1); // Trust first proxy (Render)
-}
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // handle preflight requests
-
 app.use(limiter);
-
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-  contentSecurityPolicy: false,
-}));
-
+app.use(helmet());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -67,7 +45,6 @@ const PORT = process.env.PORT || 3030;
     await connectMongo();
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`Environment: ${isProd ? "production" : "development"}`);
     });
   } catch (err) {
     console.error("❌ Startup error:", err);
