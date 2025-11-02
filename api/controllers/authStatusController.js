@@ -4,6 +4,11 @@ import { User } from "../../models/User.js";
 export const getAuthStatus = async (req, res) => {
   const accessToken = req.cookies.accessToken;
 
+  console.log("Auth Status Check:", {
+    hasCookie: !!accessToken,
+    cookies: Object.keys(req.cookies),
+  });
+
   if (!accessToken) {
     return res.status(200).json({ isLoggedIn: false, user: null });
   }
@@ -14,8 +19,19 @@ export const getAuthStatus = async (req, res) => {
     const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
+      const isProd = process.env.NODE_ENV === "production";
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+      });
+      res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+      });
       return res.status(200).json({ isLoggedIn: false, user: null });
     }
 
@@ -33,8 +49,19 @@ export const getAuthStatus = async (req, res) => {
     });
   } catch (error) {
     console.error("Authentication status check failed:", error);
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    const isProd = process.env.NODE_ENV === "production";
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
     return res.status(200).json({ isLoggedIn: false, user: null });
   }
 };

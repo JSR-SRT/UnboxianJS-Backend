@@ -13,12 +13,21 @@ dotenv.config();
 const isProd = process.env.NODE_ENV === "production";
 
 const corsOptions = {
-  origin: [
+  origin: function (origin, callback) {
+    const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
     "https://unboxian-js-personal-project.vercel.app"
-  ],
+  ];
+
+  if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -39,6 +48,7 @@ app.use(limiter);
 
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: false,
 }));
 
 app.use(cookieParser());
