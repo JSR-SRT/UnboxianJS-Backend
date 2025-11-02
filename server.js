@@ -18,13 +18,23 @@ const corsOptions = {
     "https://unboxian-js-personal-project.vercel.app"
   ],
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Set-Cookie"],
+  maxAge: 86400, // cache preflight 24 hours
 };
 
 const app = express();
 
-app.use(limiter);
-app.use(helmet());
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // handle preflight requests
+
+app.use(limiter);
+
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
+
 app.use(cookieParser());
 app.use(express.json());
 
@@ -34,13 +44,14 @@ app.get("/", (req, res) => {
 });
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 
 (async () => {
   try {
     await connectMongo();
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`Environment: ${isProd ? "production" : "development"}`);
     });
   } catch (err) {
     console.error("❌ Startup error:", err);

@@ -64,6 +64,7 @@ export const createAccount = async (req, res) => {
       sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
+      domain: isProd ? undefined : undefined,
     });
 
     res.status(201).json({
@@ -125,6 +126,7 @@ export const login = async (req, res) => {
       sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
+      domain: isProd ? undefined : undefined,
     });
 
     // Generate Refresh Token if remember is true
@@ -140,6 +142,7 @@ export const login = async (req, res) => {
         sameSite: isProd ? "none" : "lax",
         path: "/auth/token",
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        domain: isProd ? undefined : undefined,
       });
     }
 
@@ -179,12 +182,16 @@ export const logout = async (req, res) => {
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
+    path: "/",
+    domain: isProd ? undefined : undefined,
   });
 
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
+    path: "/auth/token",
+    domain: isProd ? undefined : undefined,
   });
   
   res.status(200).json({ message: "Logged out successfully" });
