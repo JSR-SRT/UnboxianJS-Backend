@@ -28,6 +28,10 @@ const corsOptions = {
 
 const app = express();
 
+if (isProd) {
+  app.set("trust proxy", 1); // Trust first proxy (Render)
+}
+
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // handle preflight requests
 
